@@ -2,6 +2,9 @@
 
 This repository implements the methodology described in the paper [**CP-PINNs: Data-Driven Changepoints Detection in PDEs Using Online Optimized Physics-Informed Neural Networks**](https://arxiv.org/abs/2208.08626). The goal is to detect changepoints in the parameters of partial differential equations (PDEs) using the architecture and algorithm of Physics-Informed Neural Networks (PINNs).
 
+Files:
+- final.ipynb contains the code.
+- tanh_pinn_model_training_data9.pth contains the parameters for the pre-trained model from the training data.
 ## Features
 
 - Detects changepoints in PDE parameters effectively.
@@ -59,14 +62,20 @@ The constraint $\( w_1 + w_2 + w_3 = 1 \)$ ensures proper normalization of the w
 2. **Updating Weights $\( \mathbf{w} \)$:**
    - After optimizing $\( \boldsymbol{\Theta} \)$, the weights $\( \mathbf{w} \)$ are updated for the $\(k^{th}\)$ batch using the formula:
 
-     $\[\begin{bmatrix}
-     w_1^{(k)} \\
-     w_2^{(k)} \\
-     w_3^{(k)}\end{bmatrix} = \begin{bmatrix}
-     \exp\left[-\eta  L^{NN}_{(k-1)} - \left( 1-\eta\gamma\right)\right] \\
-     \exp\left[-\eta L^{Training}_{(k-1)} - \left( 1-\eta\gamma\right)\right] \\
-     \exp\left[-\eta V^{\mathfrak{\lambda}}_{(k-1)} - \left( 1-\eta\gamma\right)\right]
-     \end{bmatrix}\]$
+     $$
+\left[ \begin{matrix}
+w_1^{(k)} \\
+w_2^{(k)} \\
+w_3^{(k)}
+\end{matrix} \right]
+=
+\left[ \begin{matrix}
+\exp\left[-\eta L^{NN}(k-1) - \left(1-\eta\gamma\right)\right] \\
+\exp\left[-\eta L^{Training}(k-1) - \left(1-\eta\gamma\right)\right] \\
+\exp\left[-\eta V^{\mathfrak{\lambda}}_{(k-1)} - \left(1-\eta\gamma\right)\right]
+\end{matrix} \right]
+$$
+
 
    where:
    - $\( \eta \)$: Learning rate.
